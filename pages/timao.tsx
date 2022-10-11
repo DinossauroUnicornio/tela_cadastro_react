@@ -1,4 +1,4 @@
-import { loadGetInitialProps, NextPageContext } from 'next/dist/shared/lib/utils';
+import { NextPageContext } from 'next/dist/shared/lib/utils';
 import React, { useState } from 'react'
 
 type TimaoProps = {

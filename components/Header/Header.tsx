@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import styles from  '../../styles/Header.module.css';
 import { css } from '@emotion/css';
 import styled from '@emotion/styled';
-import { Head } from 'next/document';
 import Input from '../Form/Input/Input';
 import Button from '../Form/Button/Button';
 
