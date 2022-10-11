@@ -1,5 +1,5 @@
-import { getURL, NextPageContext } from 'next/dist/shared/lib/utils';
-import React, { useState } from 'react'
+import { NextPageContext } from 'next/dist/shared/lib/utils';
+import React, { useState, useEffect } from 'react'
 
 type TimaoProps = {
   autor: string,
@@ -18,6 +18,46 @@ export default function Timao(props: TimaoProps) {
   // Estados
   const [frase, setFrase] = useState<string | undefined>(props.frase);
   const [autor, setAutor] = useState<string | undefined>(props.autor);
+
+  // função pra testar segundo useEffect
+  async function getFrase(){
+    const res = await fetch('https://type.fit/api/quotes');
+    const data = await res.json();
+    const position =Math.floor(Math.random() * data.length);
+    const frase = data[position].text;
+    const autor = data[position].author;
+
+    return {
+        frase, autor
+    }
+  }
+
+
+
+  // usando o useEffect
+  /* uma forma de fazer
+  useEffect( () => {
+    async function atualizaFrase() {
+      const data = await getFrase('https://type.fit/api/quotes');
+      const position = Math.floor(Math.random() * data.length)
+      const frase = data[position].text;
+      const autor = data[position].author;
+      setFrase(frase);
+      setAutor(autor);
+    }
+    // atualizaFrase();
+  }, [frase, autor]);
+*/
+
+// outra forma de fazer
+  let contador = 0;
+  useEffect(()=>{
+
+    getFrase().then((data)=>{ console.log(`Executou ${contador} vez`, data);});
+    contador++;      
+  
+  },[contador]);
+
 
   return (
     <>
