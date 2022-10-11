@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from  '../../styles/Header.module.css';
 import { css } from '@emotion/css';
 import styled from '@emotion/styled';
 import { Head } from 'next/document';
+import Input from '../Form/Input/Input';
+import Button from '../Form/Button/Button';
 
 const HeaderPage = styled.header`
   background: rgb(96, 214, 99);
@@ -13,32 +15,18 @@ const HeaderPage = styled.header`
   padding: 10px;
 `
 
-const InputSearch = styled.input`
-  width: 190px;
-  border-radius: 10px;
-  border: none;
-  box-shadow: 0px 0px 4px rgba(0,0,0,0.8);
-  line-height: 20px;
-  padding-left: 10px;
-`
-
-const ButtonSearch = styled.button`
-  width: 100px;
-  border-radius: 5px;
-  border: none;
-  color: red;
-  background: transparent;
-  :hover {
-    color: green;
-  }
-`
-
 type HeaderProps = {
   menu?: Array<string>,
   pesquisar?: string,
+  name?: string,
 }
 
 export default function Header(props: HeaderProps) {
+  
+  // usando Get e Set com useState
+  const [useAuth, setUserAuth] = useState<boolean>(true);
+  const [nameUser, setNameUser] = useState<string | undefined>(props.name);
+  
   return (
     // <header className={styles.menusite}>
     <HeaderPage>
@@ -62,9 +50,14 @@ export default function Header(props: HeaderProps) {
               <li>Contato</li>
             </ul>
         </nav>
+        {
+          useAuth && (<div>
+            <span>Seja Bem Vindo <strong>{nameUser ? nameUser : "Visitante"}</strong></span>
+          </div>)
+        }
         <form>
-            <InputSearch placeholder='pesquisar'></InputSearch>
-            <ButtonSearch>{props.pesquisar ? props.pesquisar : "Search"}</ButtonSearch>
+            <Input placeholder='pesquisar'></Input>
+            <Button>{props.pesquisar ? props.pesquisar : "Search"}</Button>
         </form>
     </HeaderPage>
     // </header>
